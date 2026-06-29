@@ -1,0 +1,81 @@
+﻿/* ========== Theme Variables ========== */
+:root,
+[data-theme="dark"] {
+    --bg-body: #0d1117;
+    --bg-navbar: #010409;
+    --bg-card: #161b22;
+    --bg-markdown: #0d1117;
+    --bg-blockquote: #010409;
+    --bg-th: #161b22;
+    --bg-preview: #0d1117;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-muted: #8b949e;
+    --text-heading: #f0f6fc;
+    --text-link: #58a6ff;
+    --text-link-hover: #1f6feb;
+    --text-nav: #c9d1d9;
+    --text-nav-active: #58a6ff;
+    --shadow-card: 0 8px 24px rgba(139, 149, 159, 0.18);
+    --gradient-preview: linear-gradient(rgba(13, 17, 23, 0), #161b22);
+    --btn-primary-bg: #238636;
+    --btn-primary-border: #238636;
+    --btn-primary-color: #ffffff;
+    --btn-ghost-color: #c9d1d9;
+    --btn-ghost-border: #30363d;
+    --btn-ghost-hover-bg: #161b22;
+    --btn-ghost-hover-color: #58a6ff;
+    --btn-ghost-hover-border: #30363d;
+    --about-hr-border: #30363d;
+    --form-control-bg: #0d1117;
+    --form-control-color: #c9d1d9;
+    --form-control-border: #30363d;
+    --form-label-color: #c9d1d9;
+    --list-group-bg: #161b22;
+    --list-group-border: #30363d;
+    --list-group-color: #c9d1d9;
+    --spinner-color: #58a6ff;
+    --footer-text: #8b949e;
+    --right-panel-bg: #f8f9fa;
+    --right-panel-text: #212529;
+}
+
+[data-theme="light"] {
+    --bg-body: #f6f8fa;
+    --bg-navbar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-markdown: #ffffff;
+    --bg-blockquote: #f6f8fa;
+    --bg-th: #f6f8fa;
+    --bg-preview: #ffffff;
+    --border-color: #d0d7de;
+    --text-primary: #24292f;
+    --text-muted: #656d76;
+    --text-heading: #1f2328;
+    --text-link: #0969da;
+    --text-link-hover: #0550ae;
+    --text-nav: #24292f;
+    --text-nav-active: #0969da;
+    --shadow-card: 0 1px 3px rgba(31, 35, 40, 0.12);
+    --gradient-preview: linear-gradient(rgba(246, 248, 250, 0), #ffffff);
+    --btn-primary-bg: #2da44e;
+    --btn-primary-border: #2da44e;
+    --btn-primary-color: #ffffff;
+    --btn-ghost-color: #24292f;
+    --btn-ghost-border: #d0d7de;
+    --btn-ghost-hover-bg: #f3f4f6;
+    --btn-ghost-hover-color: #0969da;
+    --btn-ghost-hover-border: #d0d7de;
+    --about-hr-border: #d0d7de;
+    --form-control-bg: #ffffff;
+    --form-control-color: #24292f;
+    --form-control-border: #d0d7de;
+    --form-label-color: #24292f;
+    --list-group-bg: #ffffff;
+    --list-group-border: #d0d7de;
+    --list-group-color: #24292f;
+    --spinner-color: #0969da;
+    --footer-text: #656d76;
+    --right-panel-bg: #ffffff;
+    --right-panel-text: #24292f;
+}

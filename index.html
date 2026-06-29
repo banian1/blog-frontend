@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <script>document.documentElement.setAttribute("data-theme", "dark");</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="bg-[var(--bg-navbar)]/80 backdrop-blur-md border-[var(--border-color)]">
+
+        <div class="flex items-center justify-between h-14">
+            <div></div>
+            <!-- 桌面端导航药丸 -->
+            <div class="nav-pill">
+                <a class="active" href="index.html">首页</a>
+                <a href="pdf.html">PDF</a>
+                <a href="about.html">关于</a>
+                <a href="admin.html">管理</a>
+                <a href="edit.html">写文章</a>
+            </div>
+
+
+            <div class="flex items-center gap-2">
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- 主内容 -->
+    <div id="articleList" class="content-wrapper mt-5">
+        <div class="max-w-3xl">
+            <div class="text-center py-12">
+                <div class="spinner-theme inline-block" role="status"></div>
+                <p class="mt-4 text-theme-muted text-sm">加载中...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+        <div class="content-wrapper text-center">
+            <p>&copy; 2026 我的博客. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 导航折叠 JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggler = document.getElementById('navbarToggler');
+            var nav = document.getElementById('navbarNav');
+            if (toggler && nav) {
+                toggler.addEventListener('click', function () {
+                    nav.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

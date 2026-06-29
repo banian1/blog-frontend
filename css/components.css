@@ -1,0 +1,53 @@
+﻿/* ========== Article Preview (首页文章列表) ========== */
+.article-preview {
+    color: #e6edf3;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    margin-top: 0.75rem;
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ========== Footer ========== */
+.site-footer {
+    background-color: var(--bg-navbar);
+    border-top: 1px solid var(--border-color);
+    color: var(--footer-text);
+    padding: 24px 0;
+    margin-top: 40px;
+}
+
+/* ========== Math ========== */
+.math-block {
+    margin: 1em 0;
+    text-align: center;
+}
+
+/* ========== Admin ========== */
+.admin-container {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+.preview-content {
+    background: var(--bg-preview);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    white-space: pre-wrap;
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.article-meta {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ========== Edit page right-panel ========== */
+.right-panel {
+    background-color: var(--right-panel-bg) !important;
+    color: var(--right-panel-text);
+}

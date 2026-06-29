@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两列布局 - 文本编辑器</title>
+    <script>document.documentElement.setAttribute("data-theme", "dark");</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        .editor-textarea {
+            height: auto;
+            min-height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="bg-[var(--bg-navbar)]/80 backdrop-blur-md border-b border-[var(--border-color)]">
+        <div class="content-wrapper">
+            <div class="flex items-center justify-between h-14">
+                <a class="text-lg font-bold text-[var(--text-nav)] no-underline" href="index.html">我的博客</a>
+
+                <div class="hidden lg:flex items-center">
+                    <div class="nav-pill">
+                        <a href="index.html">首页</a>
+                        <a href="pdf.html">PDF</a>
+                        <a href="about.html">关于</a>
+                        <a href="admin.html">管理</a>
+                        <a class="active" href="edit.html">写文章</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button id="navbarToggler"
+                        class="lg:hidden p-2 text-[var(--text-nav)] border border-[var(--border-color)] rounded"
+                        type="button" aria-label="切换菜单">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="navbarNav" class="hidden lg:hidden pb-3">
+                <div class="nav-pill flex-col w-full">
+                    <a href="index.html">首页</a>
+                    <a href="pdf.html">PDF</a>
+                    <a href="about.html">关于</a>
+                    <a href="admin.html">管理</a>
+                    <a class="active" href="edit.html">写文章</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="w-full px-4 mt-4">
+        <div class="flex flex-wrap -mx-3">
+            <!-- 左侧列：文本编辑框 (占 50% 宽度) -->
+            <div class="w-full md:w-1/2 px-3">
+                <div class="mb-3 flex items-center gap-3">
+                    <input type="text" placeholder="文章类别" id="categoryInput" class="form-theme-input max-w-[200px]">
+                </div>
+                <textarea class="form-theme-input editor-textarea" id="textEditor"
+                    placeholder="请在此输入或粘贴你的文本内容..."></textarea>
+                <div class="mt-3 flex gap-2">
+                    <button class="btn-theme-primary text-sm" id="submitBtn">
+                        💾 提交
+                    </button>
+                    <button class="btn-theme-ghost text-sm" onclick="document.getElementById('textEditor').value=''">
+                        🗑️ 清空
+                    </button>
+                </div>
+            </div>
+
+            <!-- 右侧列：预览或操作面板 (占 50% 宽度) -->
+            <div class="w-full md:w-1/2 px-3 mt-4 md:mt-0">
+                <div class="right-panel p-4 rounded-lg min-h-[500px]">
+                    <h5 class="border-b border-[var(--border-color)] pb-2 text-[var(--text-heading)] font-semibold">📋
+                        预览</h5>
+                    <div class="bg-[var(--bg-card)] p-4 border border-[var(--border-color)] rounded min-h-[200px] mt-3"
+                        id="previewArea">
+                        <span class="text-theme-muted">右侧内容区，可用来显示实时预览。</span>
+                    </div>
+                    <div class="mt-3 text-right">
+                        <span
+                            class="inline-block px-2.5 py-1 bg-[var(--bg-th)] text-[var(--text-muted)] text-xs rounded">字数统计:
+                            <span id="wordCount">0</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <script>
+        document.getElementById('textEditor').addEventListener('input', function () {
+            const count = this.value.length;
+            document.getElementById('wordCount').textContent = count;
+        });
+        document.getElementById('submitBtn').addEventListener('click', async function () {
+            const content = document.getElementById('textEditor').value;
+            const article = {
+                title: '新文章',
+                content: content,
+                author: 'banian',
+                category: '默认分类',
+            };
+            // 标题为第一行去掉#号
+            const title = content.split('\n')[0].replace(/^#+\s*/, '') || '新文章';
+            const category = document.querySelector('input[placeholder="文章类别"]').value || '默认分类';
+            article.category = category;
+            article.title = title;
+            const createOrupdate = await getArticleByTitle(article.title);
+            if (createOrupdate.code === 200) {
+                await updateArticle(createOrupdate.data.id, article);
+            }
+            else {
+                await createArticle(article);
+            }
+            alert('提交了内容:\n' + content);
+        });
+        // markdown预览
+        document.getElementById('textEditor').addEventListener('input', function () {
+            const content = this.value;
+            document.getElementById('previewArea').innerHTML = marked.parse(content);
+        });
+        // 根据id 加载文章内容到编辑器
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+        async function loadArticleToEditor(id) {
+            const result = await getArticle(id);
+            if (result.code === 200) {
+                document.getElementById('textEditor').value = result.data.content;
+                document.getElementById('categoryInput').value = result.data.category || '';
+                // 触发 input 事件更新字数统计和预览
+                document.getElementById('textEditor').dispatchEvent(new Event('input'));
+            } else {
+                alert('未找到文章');
+            }
+        }
+        // 如果有文章ID，则加载文章内容
+        if (articleId) {
+            loadArticleToEditor(articleId);
+        }
+    </script>
+    <script>
+        const el = document.getElementById('textEditor');
+        el.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    </script>
+
+    <!-- 导航折叠 JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggler = document.getElementById('navbarToggler');
+            var nav = document.getElementById('navbarNav');
+            if (toggler && nav) {
+                toggler.addEventListener('click', function () {
+                    nav.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
